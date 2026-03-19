@@ -246,6 +246,11 @@ export function crearReporteDetalleTransacciones(transacciones: Transaccion[]): 
 }
 
 export function crearReporteResumen(datos: ReporteConsolidado): Reporte {
+  const fmtMonto = (n: number) => Math.abs(n).toLocaleString('es-VE', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })
+
   return {
     id: 'resumen_general',
     titulo: 'Resumen General',
@@ -262,7 +267,7 @@ export function crearReporteResumen(datos: ReporteConsolidado): Reporte {
       { metrica: 'Hora', valor: datos.header.hora },
       { metrica: 'Tipo de Reporte', valor: datos.header.tipoReporte },
       { metrica: 'Total Transacciones', valor: datos.resumen.totalTransacciones },
-      { metrica: 'Total Monto', valor: Math.abs(datos.resumen.totalMonto), numFmt: '#,##0.00' }
+      { metrica: 'Total Monto', valor: `Bs ${fmtMonto(datos.resumen.totalMonto)}` }
     ]
   }
 }
